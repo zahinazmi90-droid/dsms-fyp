@@ -1,0 +1,113 @@
+@import "tailwindcss";
+
+/*
+  DSMS design tokens — "gate pass" institutional system.
+  Subject: a campus access-control terminal (guard post + student phone),
+  not a marketing site. Palette avoids AI-default cream/terracotta and
+  near-black/acid-green: uses a slate-teal institutional primary with a
+  cool neutral surface, and a distinct hue per movement status so a guard
+  can read a table at a glance.
+
+  Font note: this sandbox has no network access to Google Fonts CDN, so we
+  use a careful system-font stack (not Arial) with tabular numerals for
+  data and deliberate letter-spacing on headers, rather than a webfont.
+*/
+:root {
+  --ink: #142433;
+  --ink-soft: #4b5c6b;
+  --surface: #f6f8f9;
+  --surface-card: #ffffff;
+  --line: #dde3e8;
+  --primary: #2c5f6f;
+  --primary-dark: #1d4552;
+  --primary-tint: #e6eef0;
+
+  --status-in: #2e7d5b;
+  --status-in-tint: #e7f3ed;
+  --status-outside: #c97a2b;
+  --status-outside-tint: #fbeee1;
+  --status-late: #b23a3a;
+  --status-late-tint: #fbe9e9;
+  --status-overnight: #5b4b8a;
+  --status-overnight-tint: #eeebf6;
+  --status-pending: #6b7280;
+  --status-pending-tint: #eef0f2;
+
+  --background: var(--surface);
+  --foreground: var(--ink);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-surface: var(--surface);
+  --color-surface-card: var(--surface-card);
+  --color-line: var(--line);
+  --color-primary: var(--primary);
+  --color-primary-dark: var(--primary-dark);
+  --color-primary-tint: var(--primary-tint);
+  --font-sans: var(--font-body);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: ui-sans-serif, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.font-mono-data {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+
+.tracking-label {
+  letter-spacing: 0.08em;
+}
+
+/* Signature element: perforated "gate pass" card used on the student dashboard */
+.gate-pass {
+  position: relative;
+  background: var(--surface-card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+}
+.gate-pass::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 84px;
+  height: 0;
+  border-top: 2px dashed var(--line);
+}
+.gate-pass-notch-left,
+.gate-pass-notch-right {
+  position: absolute;
+  top: 74px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--surface);
+  z-index: 1;
+}
+.gate-pass-notch-left {
+  left: -10px;
+}
+.gate-pass-notch-right {
+  right: -10px;
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
